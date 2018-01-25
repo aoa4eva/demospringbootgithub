@@ -1,13 +1,14 @@
 package me.afua.demospringboot;
 
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import javax.servlet.http.HttpServletRequest;
 import java.util.Scanner;
 
 @RestController
 public class MainController {
-
 
     @RequestMapping("/")
     public String showIndex()
@@ -20,5 +21,26 @@ public class MainController {
 
         return greet;
     }
+
+
+    @RequestMapping("/getname")
+    public String showWithName(@RequestParam("county") String name,@RequestParam("age") int age)
+    {
+
+        return name+" "+age;
+    }
+
+
+    @RequestMapping("/getothername")
+    public String showWithName(HttpServletRequest param)
+    {
+
+        String withName = param.getParameter("yourname");
+        if(withName==null)
+            return "Just Hello";
+        else return "Hello "+withName;
+    }
+
+
 
 }
